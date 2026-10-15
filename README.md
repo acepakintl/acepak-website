@@ -59,17 +59,19 @@ Every time you push a change to GitHub, Vercel publishes the new version automat
 | Colours, fonts, spacing, layout | `src/styles.css` (colours are at the top, in `:root`) |
 | Slider timing, quote form, WhatsApp number | `src/main.js` |
 | Photos | `public/images/` (keep the same file names, or update the names in `src/styles.css` and `index.html`) |
-| Logo files | `public/logo-mark.svg` (teal) and `public/logo-mark-white.svg` |
+| Logo files | `public/logo-mark.svg` (dark grey) and `public/logo-mark-white.svg` |
 | Browser tab icon | `public/favicon.svg`, `public/favicon.png`, `public/apple-touch-icon.png` |
 
-The brand colours come from the company letterhead:
+The brand colours:
 
 | Name | Colour |
 |---|---|
-| Teal (main) | `#005460` |
-| Slate | `#708f9b` |
-| Mist | `#c3cad3` |
-| Paper | `#ededf3` |
+| Green (main) | `#6bb345` |
+| Green text (on white) | `#447f27` |
+| Dark green (top bar, dark bands, footer) | `#1c2619` |
+| Slate | `#7f9174` |
+| Mist | `#c6d0bf` |
+| Paper | `#eef1ea` |
 
 The WhatsApp number appears in `index.html` (links) and in `src/main.js` (quote form). Search for `923201979227` to change it everywhere.
 
