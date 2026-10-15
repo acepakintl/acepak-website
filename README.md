@@ -10,7 +10,7 @@ It is a Node.js project built with [Vite](https://vite.dev): plain HTML, CSS and
 - Full-width photo slider (three slides, auto-plays every 5 seconds, with arrows, dots and pause)
 - Service icons, quotation banner, "Who we work with" and "How can we help?" cards
 - Message from the Chief Executive, values and the UN goals the work supports
-- Key numbers, full services list, leadership and machinery, licences and registrations, contact details
+- Key numbers, full services list, leadership, licences and registrations, contact details
 - **Get a quote** form: turns the visitor's answers into a WhatsApp message to +92 320 1979227. Nothing is sent until the visitor presses send in WhatsApp, so no server or email account is needed.
 
 ## Run it on your computer
