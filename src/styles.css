@@ -19,9 +19,9 @@
   --on-dark-muted:#d3dccd;
   --on-dark-line:rgba(255,255,255,.16);
   --danger:#b42318;
-  --shade:rgba(67,70,76,.78);
+  --shade:rgba(54,57,62,.78);
   --shadow:0 22px 48px -22px rgba(28,38,25,.42);
-  --chrome:#43464C;
+  --chrome:#36393E;
   --menu-text:#676767;
 
   --font-ui:"Poppins","Segoe UI",system-ui,sans-serif;
@@ -66,7 +66,7 @@ button{font:inherit}
 .tb-phone .ic{width:16px;height:16px}
 
 /* Header */
-.site-head{position:sticky;top:env(safe-area-inset-top,0px);z-index:40;background:var(--bg);border-bottom:1px solid var(--line);box-shadow:0 8px 24px -20px rgba(67,70,76,.5)}
+.site-head{position:sticky;top:env(safe-area-inset-top,0px);z-index:40;background:var(--bg);border-bottom:1px solid var(--line);box-shadow:0 8px 24px -20px rgba(54,57,62,.5)}
 .head-inner{display:flex;align-items:center;justify-content:space-between;gap:20px;min-height:82px}
 .brand{display:flex;align-items:center;gap:12px;text-decoration:none;color:var(--chrome);min-width:0}
 .brand .mark{width:62px}
@@ -93,8 +93,8 @@ button{font:inherit}
 .slide-bg{position:absolute;inset:0;background-size:cover;background-repeat:no-repeat;overflow:hidden}
 .slide.is-active .slide-bg{animation:kenburns 7s ease-out both}
 @keyframes kenburns{from{transform:scale(1)}to{transform:scale(1.1)}}
-.slide::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(67,70,76,.9) 0%,rgba(67,70,76,.68) 52%,rgba(67,70,76,.32) 100%)}
-.slide.brand-slide::after{background:linear-gradient(90deg,rgba(67,70,76,.55) 0%,rgba(67,70,76,0) 70%)}
+.slide::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(54,57,62,.9) 0%,rgba(54,57,62,.68) 52%,rgba(54,57,62,.32) 100%)}
+.slide.brand-slide::after{background:linear-gradient(90deg,rgba(54,57,62,.55) 0%,rgba(54,57,62,0) 70%)}
 .blueprint{background-color:var(--chrome);background-image:linear-gradient(rgba(255,255,255,.08) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.08) 1px,transparent 1px),linear-gradient(rgba(255,255,255,.035) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.035) 1px,transparent 1px);background-size:160px 160px,160px 160px,32px 32px,32px 32px}
 .slide-mark{position:absolute;right:4%;top:50%;width:min(44%,520px);transform:translateY(-50%);color:rgba(255,255,255,.13)}
 .slide-content{position:relative;z-index:2;width:100%}
@@ -104,7 +104,7 @@ button{font:inherit}
 .slide h1 span,.slide h2 span{color:var(--tint)}
 .slide .sub-copy{font-size:1.1rem;color:var(--on-dark-muted);max-width:54ch}
 .slide-actions{display:flex;flex-wrap:wrap;gap:12px}
-.sl-arrow{position:absolute;top:44%;z-index:4;width:50px;height:50px;display:grid;place-items:center;border-radius:50%;border:2px solid rgba(255,255,255,.55);background:rgba(67,70,76,.35);color:var(--on-dark);cursor:pointer;transition:background-color .2s,border-color .2s}
+.sl-arrow{position:absolute;top:44%;z-index:4;width:50px;height:50px;display:grid;place-items:center;border-radius:50%;border:2px solid rgba(255,255,255,.55);background:rgba(54,57,62,.35);color:var(--on-dark);cursor:pointer;transition:background-color .2s,border-color .2s}
 .sl-arrow:hover{background:var(--brand);border-color:var(--brand)}
 .sl-arrow .ic{width:22px;height:22px;stroke-width:2}
 .sl-arrow.prev{left:max(16px,env(safe-area-inset-left,0px))}
