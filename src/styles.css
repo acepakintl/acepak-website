@@ -139,7 +139,7 @@ button{font:inherit}
 .quote-band::before{content:"";position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.05) 1px,transparent 1px);background-size:32px 32px}
 .quote-grid{position:relative;display:grid;grid-template-columns:auto minmax(0,1.15fr) minmax(0,1fr);gap:clamp(24px,4vw,56px);align-items:center;padding-block:clamp(44px,6vw,64px)}
 .quote-grid .mark{width:clamp(110px,11vw,150px);color:var(--on-dark)}
-.quote-grid h2{font:700 clamp(1.45rem,2.7vw,2.05rem)/1.18 var(--font-heading);text-transform:uppercase}
+.quote-grid h2{font:700 clamp(1.45rem,2.7vw,2.05rem)/1.18 var(--font-heading);text-transform:uppercase;color:var(--color-topband)}
 .quote-grid h2 span{color:var(--on-dark)}
 .quote-copy{display:grid;gap:18px;justify-items:start}
 .quote-copy p{color:var(--ink)}
@@ -171,7 +171,7 @@ button{font:inherit}
 .card p,.card ul{color:var(--text);font-size:.95rem;transition:color .3s}
 .card ul{list-style:none;margin:0;padding:0;display:grid;gap:8px;align-content:start}
 .card li{display:flex;gap:10px;align-items:baseline}
-.card li::before{content:"";flex:none;width:6px;height:6px;background:var(--brand);transform:translateY(-2px);transition:background-color .3s}
+.card li::before{content:"";flex:none;width:6px;height:6px;border-radius:50%;background:var(--brand);transform:translateY(-2px);transition:background-color .3s}
 .card .btn{justify-self:start}
 .card:hover{transform:translateY(-6px);background:var(--brand);border-color:var(--brand);box-shadow:var(--shadow);color:var(--ink)}
 .card:hover .ic{color:var(--on-dark)}
@@ -181,7 +181,7 @@ button{font:inherit}
 
 /* Message */
 .message{max-width:800px;margin-inline:auto;text-align:center;display:grid;gap:18px;justify-items:center}
-.message .mark{width:76px;color:var(--brand-deeper)}
+.message .mark{width:76px;color:var(--color-topband)}
 .message h2{font:700 clamp(1.35rem,2.6vw,1.9rem)/1.2 var(--font-heading);text-transform:uppercase;color:var(--brand-text);letter-spacing:.01em}
 .message p{color:var(--text);font-size:1.05rem;max-width:66ch}
 .message .tag{font:700 1.15rem/1.45 var(--font-ui);color:var(--brand-text)}
@@ -215,7 +215,7 @@ button{font:inherit}
 .svc h3{font:700 .95rem/1.3 var(--font-ui);text-transform:uppercase;letter-spacing:.04em}
 .svc ul{list-style:none;margin:0;padding:0;display:grid;gap:6px;color:var(--text);font-size:.94rem}
 .svc li{display:flex;gap:10px;align-items:baseline}
-.svc li::before{content:"";flex:none;width:8px;height:1px;background:var(--brand);transform:translateY(-4px)}
+.svc li::before{content:"";flex:none;width:6px;height:6px;border-radius:50%;background:var(--brand);transform:translateY(-2px)}
 
 /* Leadership */
 .people{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(20px,3vw,32px)}
