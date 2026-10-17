@@ -1,4 +1,4 @@
-/* AcePak International website behaviour: menu, slider, quote popup, copy buttons */
+/* AcePak International website behaviour: menu, slider, quote popup, photo viewer, copy buttons */
 (function(){
   var reduce=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
@@ -80,6 +80,38 @@
   }
   document.querySelectorAll('[data-copy]').forEach(function(b){b.addEventListener('click',function(){copyText(b,b.getAttribute('data-copy'),b.getAttribute('aria-controls'));});});
   document.getElementById('q-copy').addEventListener('click',function(){copyText(this,document.getElementById('q-preview').textContent,'q-preview');});
+
+  /* Photo viewer */
+  var lb=document.getElementById('lightbox');
+  if(lb){
+    var lbItems=[].slice.call(document.querySelectorAll('[data-lb]')), lbImg=lb.querySelector('img'), lbCap=lb.querySelector('.lb-cap'), lbCount=lb.querySelector('.lb-count'), lbIdx=0, lbLast=null;
+    function lbShow(n){
+      lbIdx=(n+lbItems.length)%lbItems.length;
+      var a=lbItems[lbIdx];
+      lbImg.src=a.getAttribute('href');lbImg.alt=a.querySelector('img').alt;
+      lbCap.textContent=a.getAttribute('data-caption')||'';lbCount.textContent='('+(lbIdx+1)+' of '+lbItems.length+')';
+    }
+    function lbOpen(n,trigger){lbLast=trigger;lbShow(n);lb.hidden=false;document.body.style.overflow='hidden';lb.querySelector('.lb-close').focus();}
+    function lbClose(){lb.hidden=true;lbImg.removeAttribute('src');document.body.style.overflow='';if(lbLast&&lbLast.focus)lbLast.focus();}
+    lbItems.forEach(function(a,i){a.addEventListener('click',function(e){e.preventDefault();lbOpen(i,a);});});
+    lb.querySelectorAll('[data-lb-close]').forEach(function(el){el.addEventListener('click',lbClose);});
+    lb.querySelector('.lb-prev').addEventListener('click',function(){lbShow(lbIdx-1);});
+    lb.querySelector('.lb-next').addEventListener('click',function(){lbShow(lbIdx+1);});
+    document.addEventListener('keydown',function(e){
+      if(lb.hidden)return;
+      if(e.key==='Escape'){lbClose();return;}
+      if(e.key==='ArrowLeft'){lbShow(lbIdx-1);return;}
+      if(e.key==='ArrowRight'){lbShow(lbIdx+1);return;}
+      if(e.key==='Tab'){
+        var f=[].slice.call(lb.querySelectorAll('button')),first=f[0],last=f[f.length-1];
+        if(e.shiftKey&&document.activeElement===first){e.preventDefault();last.focus();}
+        else if(!e.shiftKey&&document.activeElement===last){e.preventDefault();first.focus();}
+      }
+    });
+    var lx=null;
+    lb.addEventListener('touchstart',function(e){lx=e.touches[0].clientX;},{passive:true});
+    lb.addEventListener('touchend',function(e){if(lx===null)return;var dx=e.changedTouches[0].clientX-lx;if(Math.abs(dx)>45)lbShow(dx<0?lbIdx+1:lbIdx-1);lx=null;});
+  }
 
   var y=document.getElementById('year');if(y)y.textContent=new Date().getFullYear();
 })();
