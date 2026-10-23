@@ -369,6 +369,7 @@ details.codes[open] summary::after{content:"\2212"}
 .bg-water{background-image:url("/images/water.jpg")}
 .bg-power{background-image:url("/images/power.jpg")}
 .bg-overseas{background-image:url("/images/overseas.jpg");background-position:50% 50%}
+.bg-solar-slide{background-image:url("/images/solar-slide.jpg");background-position:50% 50%}
 
 /* Responsive */
 @media (max-width:1160px){
