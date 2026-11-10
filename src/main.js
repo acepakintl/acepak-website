@@ -1,4 +1,4 @@
-/* AcePak International website behaviour: menu, slider, quote popup, photo viewer, copy buttons */
+/* AcePak International website behaviour: menu, slider, enquiry form, photo viewer, copy buttons, motion */
 (function(){
   var reduce=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
@@ -33,45 +33,34 @@
   slider.addEventListener('touchend',function(e){if(sx===null)return;var dx=e.changedTouches[0].clientX-sx;if(Math.abs(dx)>45){show(dx<0?cur+1:cur-1);play();}sx=null;});
   setPauseIcon();play();
 
-  /* Quote popup */
-  var modal=document.getElementById('quote-modal'), form=document.getElementById('quote-form'), done=document.getElementById('q-done');
-  var lastFocus=null;
-  function selectOption(sel,val){if(!val)return;for(var i=0;i<sel.options.length;i++){if(sel.options[i].text===val){sel.selectedIndex=i;return;}}}
-  function openQuote(btn){
-    lastFocus=btn;
-    selectOption(document.getElementById('q-client'),btn&&btn.getAttribute('data-client'));
-    selectOption(document.getElementById('q-need'),btn&&btn.getAttribute('data-need'));
-    form.hidden=false;done.hidden=true;modal.hidden=false;document.body.style.overflow='hidden';
-    setTimeout(function(){document.getElementById('q-name').focus();},30);
+  /* Enquiry form: sends to acepak.intl@gmail.com through FormSubmit (without JavaScript the form posts there directly) */
+  var form=document.getElementById('enquiry-form');
+  if(form){
+    var statusEl=document.getElementById('e-status'), submitBtn=form.querySelector('.q-submit');
+    var rules={
+      'e-name':function(v){return v.length>1;},
+      'e-phone':function(v){return v.replace(/\D/g,'').length>=7;},
+      'e-email':function(v){return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v);},
+      'e-service':function(v){return v!=='';}
+    };
+    function check(id){var el=document.getElementById(id),ok=rules[id](el.value.trim());el.closest('.field').classList.toggle('invalid',!ok);document.getElementById(id+'-err').hidden=ok;el.setAttribute('aria-invalid',String(!ok));return ok;}
+    Object.keys(rules).forEach(function(id){var el=document.getElementById(id);['input','change'].forEach(function(t){el.addEventListener(t,function(){if(el.closest('.field').classList.contains('invalid'))check(id);});});});
+    function say(msg,cls){statusEl.textContent=msg;statusEl.className='form-note q-status'+(cls?' '+cls:'');}
+    form.addEventListener('submit',function(e){
+      e.preventDefault();
+      var bad=Object.keys(rules).filter(function(id){return !check(id);});
+      if(bad.length){document.getElementById(bad[0]).focus();say('Please check the highlighted fields.','bad');return;}
+      if(form.elements._honey.value)return; // filled only by spam bots
+      var label=submitBtn.textContent;submitBtn.disabled=true;submitBtn.textContent='Sending…';say('');
+      var data={};new FormData(form).forEach(function(v,k){data[k]=v;});
+      fetch('https://formsubmit.co/ajax/acepak.intl@gmail.com',{method:'POST',headers:{'Content-Type':'application/json','Accept':'application/json'},body:JSON.stringify(data)})
+        .then(function(r){return r.json().then(function(d){if(!r.ok||String(d.success)!=='true')throw new Error(d.message||'Not sent');});})
+        .then(function(){form.reset();say('Thank you. Your enquiry has been sent and our team will contact you soon.','ok');})
+        .catch(function(){say('Sorry, your enquiry could not be sent. Please call or WhatsApp +92 320 1979227, or email acepak.intl@gmail.com.','bad');})
+        .finally(function(){submitBtn.disabled=false;submitBtn.textContent=label;});
+    });
   }
-  function closeQuote(){modal.hidden=true;document.body.style.overflow='';if(lastFocus&&lastFocus.focus)lastFocus.focus();}
-  document.querySelectorAll('[data-quote]').forEach(function(b){b.addEventListener('click',function(){setMenu(false);openQuote(b);});});
-  modal.querySelectorAll('[data-close]').forEach(function(el){el.addEventListener('click',closeQuote);});
-  document.addEventListener('keydown',function(e){
-    if(modal.hidden)return;
-    if(e.key==='Escape'){closeQuote();return;}
-    if(e.key==='Tab'){
-      var f=[].slice.call(modal.querySelectorAll('button,a[href],input,select,textarea')).filter(function(el){return el.offsetParent!==null;});
-      if(!f.length)return;var first=f[0],last=f[f.length-1];
-      if(e.shiftKey&&document.activeElement===first){e.preventDefault();last.focus();}
-      else if(!e.shiftKey&&document.activeElement===last){e.preventDefault();first.focus();}
-    }
-  });
-  function check(id){var el=document.getElementById(id),ok=el.value.trim().length>1;el.closest('.field').classList.toggle('invalid',!ok);document.getElementById(id+'-err').hidden=ok;el.setAttribute('aria-invalid',String(!ok));return ok;}
-  form.addEventListener('submit',function(e){
-    e.preventDefault();
-    var ok=check('q-name')&check('q-phone');
-    if(!ok){(document.querySelector('.field.invalid input')||{}).focus&&document.querySelector('.field.invalid input').focus();return;}
-    var v=function(id){return document.getElementById(id).value.trim();};
-    var lines=['Quote request from the AcePak website','Name: '+v('q-name'),'Phone: '+v('q-phone'),'Client: '+v('q-client'),'Need: '+v('q-need')];
-    if(v('q-location'))lines.push('Location: '+v('q-location'));
-    if(v('q-details'))lines.push('Details: '+v('q-details'));
-    var msg=lines.join('\n');
-    document.getElementById('q-preview').textContent=msg;
-    document.getElementById('q-wa').href='https://wa.me/923201979227?text='+encodeURIComponent(msg);
-    form.hidden=true;done.hidden=false;document.getElementById('q-wa').focus();
-  });
-  document.getElementById('q-edit').addEventListener('click',function(){done.hidden=true;form.hidden=false;document.getElementById('q-name').focus();});
+  var headQuote=document.querySelector('.head-quote');if(headQuote)headQuote.addEventListener('click',function(){setMenu(false);});
 
   /* Copy buttons */
   function copyText(btn,text,targetId){
@@ -81,7 +70,6 @@
     try{navigator.clipboard.writeText(text).then(function(){btn.textContent='Copied';reset();},function(){selectIt();reset();});}catch(err){selectIt();reset();}
   }
   document.querySelectorAll('[data-copy]').forEach(function(b){b.addEventListener('click',function(){copyText(b,b.getAttribute('data-copy'),b.getAttribute('aria-controls'));});});
-  document.getElementById('q-copy').addEventListener('click',function(){copyText(this,document.getElementById('q-preview').textContent,'q-preview');});
 
   /* Photo viewer */
   var lb=document.getElementById('lightbox');
@@ -115,23 +103,18 @@
     lb.addEventListener('touchend',function(e){if(lx===null)return;var dx=e.changedTouches[0].clientX-lx;if(Math.abs(dx)>45)lbShow(dx<0?lbIdx+1:lbIdx-1);lx=null;});
   }
 
-  /* Motion: scroll reveals, floating orbs, count-up figures (skipped when the head script did not enable .motion) */
+  /* Motion: scroll reveals and count-up figures (skipped when the head script did not enable .motion) */
   var root=document.documentElement, motion=root.classList.contains('motion');
   if(motion){
-    var orbs=document.createElement('div');orbs.className='orbs';orbs.setAttribute('aria-hidden','true');
-    [[8,22,90,7],[24,64,60,9],[46,30,120,11],[66,70,70,8],[84,18,100,10],[92,58,50,6]].forEach(function(o,i){
-      var e=document.createElement('i');e.style.cssText='left:'+o[0]+'%;top:'+o[1]+'%;width:'+o[2]+'px;height:'+o[2]+'px;--t:'+o[3]+'s;--x:'+(i%2?-30:30)+'px;--y:'+(i%3?-40:35)+'px';orbs.appendChild(e);
-    });
-    slider.insertBefore(orbs,slider.querySelector('.sl-arrow'));
 
     // [selector, variant, stagger step in seconds]; items in the same parent cascade one after another.
     var groups=[
       ['.sec-head','',0],['.icons a','rv-card',.07],
-      ['.quote-grid .mark','rv-left',0],['.quote-grid h2','',.1],['.quote-copy','rv-right',.15],
+      
       ['.cards .card','rv-card',.12],['.message > *','',.08],['.values .value','rv-card',.12],['.sdg > *','rv-pop',.05],
       ['.stats .stat','',.12],['.svc-grid .svc','rv-card',.06],['.people .person','rv-card',.14],
       ['.rec-body > *','',.08],['.rec-gallery li','rv-right',.07],['.lic-grid .lic','rv-card',.1],['.reg-row > *','rv-pop',.04],
-      ['details.codes','',0],['.contact-grid > :first-child','rv-left',0],['.cta-box','rv-right',.1],['.foot-grid > *','',.1]
+      ['details.codes','',0],['.contact-grid > :first-child','rv-left',0],['.q-intro','rv-left',0],['.q-card','rv-right',.1],['.foot-grid > *','',.1]
     ];
     var targets=[];
     groups.forEach(function(g){
