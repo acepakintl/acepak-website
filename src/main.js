@@ -12,6 +12,7 @@
   var slider=document.querySelector('.slider'), slides=[].slice.call(slider.querySelectorAll('.slide')), dots=[].slice.call(slider.querySelectorAll('.dot'));
   var pauseBtn=slider.querySelector('.sl-pause'), cur=0, timer=null, userPaused=reduce;
   function show(n){
+    var out=slides[cur];out.classList.add('is-leaving');clearTimeout(out._leave);out._leave=setTimeout(function(){out.classList.remove('is-leaving');},900);
     slides[cur].classList.remove('is-active');slides[cur].setAttribute('aria-hidden','true');slides[cur].inert=true;dots[cur].setAttribute('aria-current','false');
     cur=(n+slides.length)%slides.length;
     slides[cur].classList.add('is-active');slides[cur].removeAttribute('aria-hidden');slides[cur].inert=false;dots[cur].setAttribute('aria-current','true');
@@ -134,7 +135,7 @@
         if(el.classList.contains('stat'))countUp(el);
         // Once arrived, drop the reveal classes so each element's own hover transitions apply again.
         var d=parseFloat(el.style.getPropertyValue('--rv-d'))||0;
-        setTimeout(function(){el.classList.remove('rv','rv-card','rv-pop','rv-left','rv-right','in');el.style.removeProperty('--rv-d');},(d+1.2)*1000);
+        setTimeout(function(){el.classList.remove('rv','rv-card','rv-pop','rv-left','rv-right','in');el.style.removeProperty('--rv-d');},(d+1.7)*1000);
       });
     },{rootMargin:'0px 0px -8% 0px',threshold:.12});
     targets.forEach(function(el){io.observe(el);});
