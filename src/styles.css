@@ -108,7 +108,10 @@ button{font:inherit}
 .blueprint{background-color:var(--chrome);background-image:linear-gradient(rgba(255,255,255,.08) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.08) 1px,transparent 1px),linear-gradient(rgba(255,255,255,.035) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.035) 1px,transparent 1px);background-size:160px 160px,160px 160px,32px 32px,32px 32px}
 .slide-mark{position:absolute;right:4%;top:50%;width:min(44%,520px);transform:translateY(-50%);color:rgba(255,255,255,.13)}
 .slide-content{position:relative;z-index:2;width:100%}
-.slide-inner{max-width:740px;display:grid;gap:22px;padding-block:72px 140px}
+.slide-inner{max-width:740px;display:grid;gap:22px;padding-block:86px 140px}
+.hero-tag{position:absolute;top:0;left:0;right:0;z-index:4;margin:0;padding:18px max(16px,env(safe-area-inset-right,0px)) 0 max(16px,env(safe-area-inset-left,0px));display:flex;justify-content:center;pointer-events:none}
+.hero-tag span{display:inline-flex;align-items:center;gap:16px;font:600 clamp(.7rem,1.05vw,.86rem)/1.35 var(--font-ui);letter-spacing:.28em;color:var(--on-dark);text-align:center;text-shadow:0 1px 10px rgba(0,0,0,.45)}
+.hero-tag span::before,.hero-tag span::after{content:"";flex:none;width:clamp(22px,4.5vw,60px);height:2px;background:var(--color-brand-green)}
 .kicker{font:600 .8rem/1.4 var(--font-ui);letter-spacing:.14em;text-transform:uppercase;color:var(--tint)}
 .slide h1,.slide h2{font:700 clamp(2rem,4.6vw,3.6rem)/1.08 var(--font-heading);text-transform:uppercase;letter-spacing:.005em}
 .slide h1 span,.slide h2 span{color:var(--color-brand-green)}
@@ -408,7 +411,10 @@ details.codes[open] summary::after{content:"\2212"}
   .offices{display:none}
   .topbar-inner{justify-content:space-between}
   .sl-arrow{display:none}
-  .slide-inner{padding-block:56px 132px}
+  .slide-inner{padding-block:70px 132px}
+  .hero-tag{padding-top:12px}
+  .hero-tag span{gap:0;font-size:.6rem;letter-spacing:.12em}
+  .hero-tag span::before,.hero-tag span::after{display:none}
   .slide-mark{width:70%;right:-12%;top:62%}
 }
 @media (max-width:600px){
