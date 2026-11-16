@@ -121,7 +121,7 @@
     <p class="i-name">ACEPAK INTERNATIONAL</p>
     <p class="i-tag">SUSTAINABLE ENERGY &amp; CONSTRUCTION SERVICES</p>
   </div>
-  <div class="i-progress"><span class="i-pct"><span id="intro-num">0</span><small>%</small></span><span class="i-bar"><i id="intro-bar"></i></span></div>
+  <div class="i-progress"><svg class="i-ring" viewBox="0 0 100 100"><circle class="i-track" cx="50" cy="50" r="46"/><circle class="i-arc" id="intro-arc" cx="50" cy="50" r="46" pathLength="100"/></svg><span class="i-pct"><span id="intro-num">0</span><small>%</small></span></div>
 </div>
 <script>(function(){
   var h=document.documentElement,s=document.getElementById("intro");
@@ -129,14 +129,14 @@
   if(!h.classList.contains("intro")){s.parentNode.removeChild(s);return;}
   // 5 s in total: the count runs for COUNT ms, then the screen lifts away over EXIT ms.
   var COUNT=4200,EXIT=800,t0=performance.now(),done=false,page=[];
-  var num=document.getElementById("intro-num"),bar=document.getElementById("intro-bar");
+  var num=document.getElementById("intro-num"),arc=document.getElementById("intro-arc");
   var loaded=document.readyState==="complete";
   window.addEventListener("load",function(){loaded=true;});
   setTimeout(function(){loaded=true;},8000); // if the load event never arrives, finish anyway
   function lock(){page=[].filter.call(document.body.children,function(e){return e!==s&&e.tagName!=="SCRIPT";});page.forEach(function(e){e.inert=true;});}
   if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",lock);else lock();
   function ease(t){return -(Math.cos(Math.PI*t)-1)/2;}
-  function show(f){num.textContent=Math.floor(f*100);bar.style.transform="scaleX("+f+")";}
+  function show(f){num.textContent=Math.floor(f*100);arc.style.strokeDashoffset=String(100-f*100);}
   function finish(){
     if(done)return;done=true;show(1);
     try{sessionStorage.setItem("acepak-intro","1");}catch(e){}
