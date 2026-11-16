@@ -507,3 +507,35 @@ details.codes[open] summary::after{content:"\2212"}
   @view-transition{navigation:auto}
   ::view-transition-old(root),::view-transition-new(root){animation-duration:.4s;animation-timing-function:var(--ease)}
 }
+
+/* Welcome screen: logo, name and tagline with a 0-100% bar; exactly 5 s, once per session (enabled by the head script via html.intro) */
+html{scrollbar-gutter:stable}
+.intro-screen{display:none}
+html.intro{overflow:hidden}
+.intro .intro-screen{position:fixed;inset:0;z-index:200;display:grid;grid-template-rows:1fr auto;justify-items:center;padding:clamp(28px,7vh,72px) clamp(20px,5vw,64px);background-color:var(--chrome);background-image:repeating-linear-gradient(135deg,rgba(255,255,255,.03) 0 1px,transparent 1px 140px);color:var(--on-dark);text-align:center}
+.i-center{align-self:center;display:grid;justify-items:center;gap:clamp(14px,2.6vh,24px)}
+.i-mark{width:clamp(70px,8vw,96px);color:var(--on-dark);margin-bottom:clamp(2px,1vh,10px)}
+.i-name{font:700 clamp(1.9rem,5vw,3.8rem)/1.05 var(--font-heading);letter-spacing:.05em;color:var(--on-dark)}
+.i-tag{display:flex;align-items:center;gap:16px;font:600 clamp(.72rem,1.15vw,.92rem)/1.45 var(--font-ui);letter-spacing:.26em;color:var(--tint)}
+.i-tag::before,.i-tag::after{content:"";flex:none;width:clamp(24px,4vw,52px);height:2px;background:var(--color-brand-green)}
+.i-progress{width:min(360px,78vw);display:grid;justify-items:center;gap:12px}
+.i-pct{display:flex;align-items:baseline;gap:2px;font:500 clamp(1.25rem,2vw,1.55rem)/1 var(--font-heading);font-variant-numeric:tabular-nums;color:var(--on-dark)}
+.i-pct small{font-size:.55em;font-weight:600;color:var(--tint)}
+.i-bar{display:block;width:100%;height:2px;background:rgba(255,255,255,.14);overflow:hidden}
+.i-bar i{display:block;height:100%;background:var(--color-brand-green);transform:scaleX(0);transform-origin:left}
+@media (max-width:600px){.i-tag{gap:0;letter-spacing:.16em;max-width:24ch}.i-tag::before,.i-tag::after{display:none}}
+/* Entrance: brief, quiet fade-ups */
+.intro .i-center>*,.intro .i-progress{animation:i-rise .9s var(--ease) both}
+.intro .i-mark{animation-name:i-mark;animation-delay:.05s}
+.intro .i-name{animation-delay:.22s}
+.intro .i-tag{animation-delay:.42s}
+.intro .i-progress{animation-delay:.3s}
+.intro .i-tag::before,.intro .i-tag::after{animation:i-rule .9s var(--ease) .7s both}
+.intro .i-tag::before{transform-origin:right}
+.intro .i-tag::after{transform-origin:left}
+@keyframes i-rise{from{opacity:0;transform:translateY(16px)}}
+@keyframes i-mark{from{opacity:0;transform:scale(.92)}}
+@keyframes i-rule{from{transform:scaleX(0)}}
+/* Exit: the screen lifts away to reveal the homepage (0.8 s, matching EXIT in the script) */
+.intro-screen.leaving{transform:translateY(-100%);transition:transform .8s var(--ease-io)}
+.intro-screen.leaving .i-center,.intro-screen.leaving .i-progress{opacity:0;transition:opacity .3s ease}

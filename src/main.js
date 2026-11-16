@@ -1,5 +1,6 @@
 /* AcePak International website behaviour: menu, slider, enquiry form, photo viewer, copy buttons, motion */
 (function(){
+  document.documentElement.classList.add('js-ok');
   var reduce=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   /* Menu */
@@ -32,7 +33,9 @@
   var sx=null;
   slider.addEventListener('touchstart',function(e){sx=e.touches[0].clientX;},{passive:true});
   slider.addEventListener('touchend',function(e){if(sx===null)return;var dx=e.changedTouches[0].clientX-sx;if(Math.abs(dx)>45){show(dx<0?cur+1:cur-1);play();}sx=null;});
-  setPauseIcon();play();
+  setPauseIcon();
+  // While the welcome screen is open, hold the slider so slide 1 animates in as the visitor enters.
+  if(document.documentElement.classList.contains('intro')){document.addEventListener('intro:done',play,{once:true});}else{play();}
 
   /* Enquiry form: sends to acepak.intl@gmail.com through FormSubmit (without JavaScript the form posts there directly) */
   var form=document.getElementById('enquiry-form');
@@ -139,7 +142,8 @@
       });
     },{rootMargin:'0px 0px -8% 0px',threshold:.12});
     targets.forEach(function(el){io.observe(el);});
-    requestAnimationFrame(function(){root.classList.add('ready');});
+    var ready=function(){requestAnimationFrame(function(){root.classList.add('ready');});};
+    if(root.classList.contains('intro'))document.addEventListener('intro:done',ready,{once:true});else ready();
   }
 
   /* Count-up figures: animates the digits already in the page, so the final text is always present for search engines */
