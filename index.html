@@ -21,7 +21,6 @@
     "@type": "GeneralContractor",
     "@id": "https://acepakintl.com.pk/#organization",
     "name": "AcePak International",
-    "legalName": "AcePak International (Private) Limited",
     "url": "https://acepakintl.com.pk/",
     "logo": "https://acepakintl.com.pk/logo-mark.svg",
     "image": "https://acepakintl.com.pk/images/hero.jpg",
@@ -127,12 +126,12 @@
   var h=document.documentElement,s=document.getElementById("intro");
   if(!s)return;
   if(!h.classList.contains("intro")){s.parentNode.removeChild(s);return;}
-  // 5 s in total: the count runs for COUNT ms, then the screen lifts away over EXIT ms.
-  var COUNT=4200,EXIT=800,t0=performance.now(),done=false,page=[];
+  // 6 s in total: the count runs for COUNT ms, then the screen lifts away over EXIT ms.
+  var COUNT=5200,EXIT=800,t0=performance.now(),done=false,page=[];
   var num=document.getElementById("intro-num"),arc=document.getElementById("intro-arc");
   var loaded=document.readyState==="complete";
   window.addEventListener("load",function(){loaded=true;});
-  setTimeout(function(){loaded=true;},8000); // if the load event never arrives, finish anyway
+  setTimeout(function(){loaded=true;},9000); // if the load event never arrives, finish anyway
   function lock(){page=[].filter.call(document.body.children,function(e){return e!==s&&e.tagName!=="SCRIPT";});page.forEach(function(e){e.inert=true;});}
   if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",lock);else lock();
   function ease(t){return -(Math.cos(Math.PI*t)-1)/2;}
@@ -153,7 +152,7 @@
     requestAnimationFrame(tick);
   }
   requestAnimationFrame(tick);
-  setTimeout(finish,10000); // safety: never hold visitors longer than this
+  setTimeout(finish,12000); // safety: never hold visitors longer than this
   document.addEventListener("keydown",function(e){if(e.key==="Escape")finish();});
 })();</script>
 <div class="topbar">
@@ -167,9 +166,9 @@
 
 <header class="site-head">
   <div class="wrap head-inner">
-    <a class="brand" href="#home" aria-label="AcePak International (Private) Limited, home">
+    <a class="brand" href="#home" aria-label="AcePak International, home">
       <svg class="mark" viewBox="0 0 244.8 212.2" aria-hidden="true"><use href="#acepak-mark"/></svg>
-      <span class="brand-text"><span class="brand-name">ACEPAK INTERNATIONAL</span><span class="brand-sub">(PRIVATE) LIMITED</span></span>
+      <span class="brand-text"><span class="brand-name">ACEPAK INTERNATIONAL</span></span>
     </a>
     <nav class="nav" aria-label="Main">
       <ul class="menu" id="menu">
@@ -356,7 +355,7 @@
         <p>Established in January 2023, AcePak International is an engineer-owned construction and engineering company committed to delivering reliable, high-quality, and sustainable infrastructure solutions across Northern Pakistan.</p>
         <p>Our expertise spans RCC, stone, timber, and mud-brick construction, supported by practical site experience and modern construction equipment. We develop solutions suited to challenging terrain, harsh winters, and remote locations.</p>
         <p>We believe in quality workmanship, professional integrity, sustainable practices, and strong client relationships. Our commitment is to deliver durable infrastructure that meets our clients&rsquo; needs and creates lasting value for the communities we serve.</p>
-        <div class="sign"><b>Engr. Shafi Ullah</b><span>Chief Executive</span><span>AcePak International (Private) Limited</span></div>
+        <div class="sign"><b>Engr. Shafi Ullah</b><span>Chief Executive</span><span>AcePak International</span></div>
       </div>
       <div class="values">
         <div class="value"><h3>Our vision</h3><p>To become a trusted leader in sustainable construction and engineering across Northern Pakistan, recognised nationally for quality, innovation, and lasting contributions to community development.</p></div>
@@ -585,9 +584,9 @@
 <footer class="site-foot">
   <div class="wrap foot-grid">
     <div class="foot-about">
-      <a class="lockup" href="#home" aria-label="AcePak International (Private) Limited, home">
+      <a class="lockup" href="#home" aria-label="AcePak International, home">
         <svg class="mark" viewBox="0 0 244.8 212.2" aria-hidden="true"><use href="#acepak-mark"/></svg>
-        <span class="lk"><b>ACEPAK INTERNATIONAL</b><span class="lk-sub">(PRIVATE) LIMITED</span><small>Engineering | Constructions | Procurements</small></span>
+        <span class="lk"><b>ACEPAK INTERNATIONAL</b><small>Engineering | Constructions | Procurements</small></span>
       </a>
       <span class="foot-rule" aria-hidden="true"></span>
       <div class="social"><a href="https://www.linkedin.com/company/acepak-international-pvt-ltd/" target="_blank" rel="noopener noreferrer" aria-label="AcePak International on LinkedIn (opens in a new tab)"><svg class="ic" aria-hidden="true"><use href="#i-linkedin"/></svg></a><a href="https://www.facebook.com/acepak.intl" target="_blank" rel="noopener noreferrer" aria-label="AcePak International on Facebook (opens in a new tab)"><svg class="ic" aria-hidden="true"><use href="#i-facebook"/></svg></a></div>
@@ -606,7 +605,7 @@
     </div>
   </div>
   <div class="wrap foot-bottom">
-    <span>&copy; <span id="year">2026</span> AcePak International (Private) Limited</span>
+    <span>&copy; <span id="year">2026</span> AcePak International</span>
     <span class="mono">PEC 22343 (C4/E) &middot; C&amp;W KP Reg. CWD-03323 &middot; Enlistment 22343 (C-4)</span>
   </div>
 </footer>
