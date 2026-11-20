@@ -334,31 +334,6 @@ details.codes[open] summary::after{content:"\2212"}
 .field.invalid input{border-color:var(--danger)}
 .form .btn{grid-column:1/-1;justify-self:start}
 .form-note{grid-column:1/-1;font-size:.82rem;color:var(--text)}
-/* Request a quote */
-.quote-sec{position:relative;overflow:hidden;background:var(--chrome);color:var(--on-dark)}
-.quote-sec::before{content:"";position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.04) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.04) 1px,transparent 1px);background-size:32px 32px}
-.quote-layout{position:relative;display:grid;grid-template-columns:minmax(0,.85fr) minmax(0,1.15fr);gap:clamp(32px,5vw,72px);align-items:center}
-.q-intro{display:grid;gap:18px;align-content:start}
-.q-kicker{font:600 .8rem/1.4 var(--font-ui);letter-spacing:.14em;text-transform:uppercase;color:var(--tint)}
-.q-intro h2{font:700 clamp(1.7rem,3.4vw,2.6rem)/1.1 var(--font-heading);text-transform:uppercase;color:var(--on-dark)}
-.q-intro h2 span{color:var(--color-brand-green)}
-.q-intro>p{color:var(--on-dark-muted);font-size:1.05rem;max-width:46ch}
-.q-points{list-style:none;margin:6px 0 0;padding:0;display:grid;gap:12px}
-.q-points li{display:flex;align-items:center;gap:12px;font:500 .98rem/1.4 var(--font-ui)}
-.q-points .ic{width:20px;height:20px;color:var(--tint)}
-.q-points a{color:var(--on-dark);text-decoration:none}
-.q-points a:hover{text-decoration:underline;text-underline-offset:4px}
-.q-card{background:var(--bg);color:var(--ink);padding:clamp(24px,3.5vw,40px);border-top:5px solid var(--brand);box-shadow:0 30px 80px -30px rgba(0,0,0,.6)}
-.field .opt{font-weight:500;letter-spacing:0;text-transform:none;color:var(--text)}
-.field.invalid input,.field.invalid select{border-color:var(--danger)}
-.hp{position:absolute;left:-9999px;width:1px;height:1px;opacity:0}
-.form .btn.q-submit{justify-self:stretch;padding-block:16px;font-size:.86rem}
-.q-submit[disabled]{opacity:.7;cursor:wait}
-.q-status:empty{display:none}
-.q-status{font-size:.92rem;font-weight:600}
-.q-status.ok{color:var(--brand-text)}
-.q-status.bad{color:var(--danger)}
-@media (max-width:900px){.quote-layout{grid-template-columns:minmax(0,1fr)}}
 
 /* Photo backgrounds (each image embedded once) */
 .bg-hero{background-image:url("/images/hero.jpg")}

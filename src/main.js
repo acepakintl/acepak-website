@@ -37,33 +37,6 @@
   // While the welcome screen is open, hold the slider so slide 1 animates in as the visitor enters.
   if(document.documentElement.classList.contains('intro')){document.addEventListener('intro:done',play,{once:true});}else{play();}
 
-  /* Enquiry form: sends to acepak.intl@gmail.com through FormSubmit (without JavaScript the form posts there directly) */
-  var form=document.getElementById('enquiry-form');
-  if(form){
-    var statusEl=document.getElementById('e-status'), submitBtn=form.querySelector('.q-submit');
-    var rules={
-      'e-name':function(v){return v.length>1;},
-      'e-phone':function(v){return v.replace(/\D/g,'').length>=7;},
-      'e-email':function(v){return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v);},
-      'e-service':function(v){return v!=='';}
-    };
-    function check(id){var el=document.getElementById(id),ok=rules[id](el.value.trim());el.closest('.field').classList.toggle('invalid',!ok);document.getElementById(id+'-err').hidden=ok;el.setAttribute('aria-invalid',String(!ok));return ok;}
-    Object.keys(rules).forEach(function(id){var el=document.getElementById(id);['input','change'].forEach(function(t){el.addEventListener(t,function(){if(el.closest('.field').classList.contains('invalid'))check(id);});});});
-    function say(msg,cls){statusEl.textContent=msg;statusEl.className='form-note q-status'+(cls?' '+cls:'');}
-    form.addEventListener('submit',function(e){
-      e.preventDefault();
-      var bad=Object.keys(rules).filter(function(id){return !check(id);});
-      if(bad.length){document.getElementById(bad[0]).focus();say('Please check the highlighted fields.','bad');return;}
-      if(form.elements._honey.value)return; // filled only by spam bots
-      var label=submitBtn.textContent;submitBtn.disabled=true;submitBtn.textContent='Sending…';say('');
-      var data={};new FormData(form).forEach(function(v,k){data[k]=v;});
-      fetch('https://formsubmit.co/ajax/acepak.intl@gmail.com',{method:'POST',headers:{'Content-Type':'application/json','Accept':'application/json'},body:JSON.stringify(data)})
-        .then(function(r){return r.json().then(function(d){if(!r.ok||String(d.success)!=='true')throw new Error(d.message||'Not sent');});})
-        .then(function(){form.reset();say('Thank you. Your enquiry has been sent and our team will contact you soon.','ok');})
-        .catch(function(){say('Sorry, your enquiry could not be sent. Please call or WhatsApp +92 320 1979227, or email acepak.intl@gmail.com.','bad');})
-        .finally(function(){submitBtn.disabled=false;submitBtn.textContent=label;});
-    });
-  }
   var headQuote=document.querySelector('.head-quote');if(headQuote)headQuote.addEventListener('click',function(){setMenu(false);});
 
   /* Copy buttons */
@@ -118,7 +91,7 @@
       ['.cards .card','rv-card',.12],['.message > *','',.08],['.values .value','rv-card',.12],['.sdg > *','rv-pop',.05],
       ['.stats .stat','',.12],['.svc-grid .svc','rv-card',.06],['.people .person','rv-card',.14],
       ['.rec-body > *','',.08],['.rec-gallery li','rv-right',.07],['.lic-grid .lic','rv-card',.1],['.reg-row > *','rv-pop',.04],
-      ['details.codes','',0],['.contact-grid > :first-child','rv-left',0],['.q-intro','rv-left',0],['.q-card','rv-right',.1],['.foot-grid > *','',.1]
+      ['details.codes','',0],['.contact-grid > :first-child','rv-left',0],['.foot-grid > *','',.1]
     ];
     var targets=[];
     groups.forEach(function(g){
